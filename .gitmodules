@@ -1,0 +1,3 @@
+[submodule "external/crisp8"]
+	path = external/crisp8
+	url = https://github.com/ahellqui/crisp8.git
