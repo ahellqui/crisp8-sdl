@@ -35,8 +35,11 @@ static void capFramerate (uint32_t* lastTime, float* remainder, uint16_t fps)
     wait -= frametime;
     *remainder += expectedFrametime - (int)expectedFrametime;
 
-    SDL_Delay (wait);
-
+    // Only delay if we're actually faster than our framerate
+    if (wait > 0)
+    {
+        SDL_Delay (wait);
+    }
 
     *lastTime = SDL_GetTicks ();
 }
