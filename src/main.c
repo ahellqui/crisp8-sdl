@@ -1,6 +1,8 @@
 #include <crisp8.h>
 
 #include <stdio.h>
+#include <time.h>
+
 #include <SDL2/SDL.h>
 
 #include "screen.h"
@@ -81,6 +83,8 @@ int main (int argc, char* argv [])
 
     initSDL ();
     atexit (cleanupSDL);
+
+    srand (time (0));
 
     chip8 emulator;
     initChip8 (&emulator, argv [1]);
