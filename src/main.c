@@ -78,6 +78,7 @@ static void initChip8 (chip8* emulator, const char* progFile)
     uint8_t* prog = loadProgram (progFile, &progSize);
 
     crisp8Init (emulator);
+    crisp8SetInputCallback (*emulator, inputCb);
     crisp8InitializeProgram (*emulator, prog, progSize);
 
     free (prog);
