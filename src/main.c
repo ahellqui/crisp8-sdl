@@ -4,10 +4,14 @@
 #include <time.h>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "screen.h"
 #include "loop.h"
+#include "callbacks.h"
+#include "sound.h"
 
+// Initializes all SDL systems needed
 static void initSDL ()
 {
     if (SDL_Init (SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO) < 0)
@@ -15,10 +19,16 @@ static void initSDL ()
         printf ("Could not initialize SDL; aborting");
         abort ();
     }
+
+    Mix_Init (MIX_INIT_OGG);
+    Mix_OpenAudio (44100, MIX_DEFAULT_FORMAT, 2, 1024);
+    Mix_AllocateChannels (1);
 }
 
 static void cleanupSDL ()
 {
+    Mix_CloseAudio ();
+    Mix_Quit ();
     SDL_Quit ();
 }
 
@@ -83,6 +93,8 @@ int main (int argc, char* argv [])
 
     initSDL ();
     atexit (cleanupSDL);
+
+    initSound ();
 
     srand (time (0));
 
