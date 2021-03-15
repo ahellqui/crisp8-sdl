@@ -12,12 +12,12 @@ void initSound ()
 
 void toggleBeep ()
 {
-    if (Mix_Playing (1))
+    if (Mix_Playing (-1))
     {
-        Mix_HaltChannel (1);
+        Mix_HaltChannel (-1);
     }
     else
     {
-        Mix_PlayChannel (1, beepSound, -1);
+        Mix_PlayChannel (-1, beepSound, -1);
     }
 }

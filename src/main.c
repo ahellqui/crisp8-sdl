@@ -79,6 +79,7 @@ static void initChip8 (chip8* emulator, const char* progFile)
 
     crisp8Init (emulator);
     crisp8SetInputCallback (*emulator, inputCb);
+    crisp8SetAudioCallback (*emulator, audioCb);
     crisp8InitializeProgram (*emulator, prog, progSize);
 
     free (prog);
