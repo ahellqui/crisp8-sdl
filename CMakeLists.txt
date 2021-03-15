@@ -17,7 +17,7 @@ add_executable (crisp8-sdl ${SOURCES})
 # Sets the c standard
 set_target_properties (crisp8-sdl PROPERTIES C_STANDARD 99)
 
-target_link_libraries (crisp8-sdl PRIVATE SDL2::SDL2 crisp8)
+target_link_libraries (crisp8-sdl PRIVATE SDL2::SDL2 SDL2_mixer crisp8)
 
 if (WIN32)
     target_link_libraries (crisp8-sdl PRIVATE SDL2::SDL2main)
