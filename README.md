@@ -1,4 +1,4 @@
-Crisp8-sdl is a reference frontend for the [https://github.com/ahellqui/crisp8](crisp8) backend using SDL2 for audio, video, input and things.
+Crisp8-sdl is a reference frontend for the [crisp8](https://github.com/ahellqui/crisp8) backend using SDL2 for audio, video, input and things.
 
 ## Usage
 Run the program and supply a rom file as the only argument.
