@@ -71,7 +71,6 @@ static uint8_t* loadProgram (const char* programFile, uint16_t* programSize)
     return programArr;
 }
 
-// This will also do things like initialize callbacks as those are added
 static void initChip8 (chip8* emulator, const char* progFile)
 {
     uint16_t progSize;
