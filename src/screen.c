@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "options.h"
 
 // These are the actual window width and height rather than the chip-8's display size.
 // The coordinates are not widescreen because the chip-8 wasn't
@@ -10,7 +11,10 @@
 
 static void clearScreen (struct screen* screen)
 {
-    SDL_SetRenderDrawColor (screen->renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor (screen->renderer, globalOptions.backgroundColor.r,
+                                              globalOptions.backgroundColor.g,
+                                              globalOptions.backgroundColor.b,
+                                              SDL_ALPHA_OPAQUE);
     SDL_RenderClear (screen->renderer);
 }
 
@@ -58,7 +62,11 @@ void drawFramebuffer (struct screen* screen, const uint8_t* const framebuffer)
         {
             // This frontend is written with the macro CRISP8_DISPLAY_USE_ALPHA defined. Hence, the pixels value are
             // their alpha value.
-            SDL_SetRenderDrawColor (screen->renderer, 0, 190, 25, framebuffer [i]);
+            SDL_SetRenderDrawColor (screen->renderer, globalOptions.foregroundColor.r,
+                                                      globalOptions.foregroundColor.g,
+                                                      globalOptions.foregroundColor.b,
+                                                      framebuffer [i]);
+
             SDL_RenderFillRect (screen->renderer, &screen->displayPixels [i]);
         }
     }
