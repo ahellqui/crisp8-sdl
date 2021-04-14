@@ -63,7 +63,8 @@ mingw32-make
 mingw32-make install
 ```
 Or:
-```mingw32-make install/local
+```
+mingw32-make install/local
 ```
 
 ## NAQ (Never Asked Questions)
