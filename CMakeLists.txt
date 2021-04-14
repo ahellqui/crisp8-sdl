@@ -24,8 +24,10 @@ if (WIN32)
     target_include_directories (crisp8-sdl PRIVATE ${SDL2_MIXER_PATH}/include)
     target_link_directories (crisp8-sdl PRIVATE ${SDL2_MIXER_PATH}/lib)
 
+    # Bundle the sdl libraries on windows
     file (GLOB SDL2_MIXER_DEPENDENCIES ${SDL2_MIXER_PATH}/bin/*)
-    install (FILES ${SDL2_MIXER_DEPENDENCIES} DESTINATION bin)
+    install (FILES ${SDL2_MIXER_DEPENDENCIES}  DESTINATION bin)
+    install (FILES ${SDL2_DIR}/../bin/SDL2.dll DESTINATION bin)
 
     # WinMain because windows is windows
     target_link_libraries (crisp8-sdl PRIVATE SDL2::SDL2main)
