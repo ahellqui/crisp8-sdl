@@ -15,10 +15,10 @@ set_target_properties (crisp8-sdl PROPERTIES C_STANDARD 99)
 # Find sdl2
 find_package (SDL2 REQUIRED)
 
-# This has to come first for some strange reason
-target_link_libraries(crisp8-sdl PRIVATE mingw32)
-
 if (WIN32)
+# This has to come first for some strange reason
+    target_link_libraries(crisp8-sdl PRIVATE mingw32)
+
     # My (working but should not) attempt at including SDL2_Mixer
     # You have to specify SDL2_MIXER_PATH on the command line
     target_include_directories (crisp8-sdl PRIVATE ${SDL2_MIXER_PATH}/include)
