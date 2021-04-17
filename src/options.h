@@ -15,7 +15,7 @@ extern struct crisp8SdlOptions
     // The fps (cycles per second) to run at, capped at 9999 fps
     uint16_t fps;
 
-    // Hex values of background and foreground colors
+    // RGB values of background and foreground colors
     struct rgbColor foregroundColor;
     struct rgbColor backgroundColor;
 
@@ -25,10 +25,11 @@ extern struct crisp8SdlOptions
 } globalOptions;
 
 
-// TODO document and stuff
-void optionSetFps (char* fps);
-void optionSetRom (char* romPath);
-void optionSetFg (char* color);
-void optionSetBg (char* color);
-
+// Parses the command line options and sets settings based on them.
+// argc and argv should be passed directly from main
+//
+// Parameters:
+//  argc: The number of arguments given
+//  argv: Array of strings containing the arguments
+void parseCommandLine (int argc, char* argv []);
 #endif

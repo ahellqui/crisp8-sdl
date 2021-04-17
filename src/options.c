@@ -43,7 +43,7 @@ static bool hexStringToColor (char* str, struct rgbColor* colorData)
     return true;
 }
 
-void optionSetFps (char* fps)
+static void cmdOptionSetFps (char* fps)
 {
     const size_t argLength = strlen (fps);
     if (strspn (fps, "0123456789") != argLength)
@@ -63,14 +63,14 @@ void optionSetFps (char* fps)
     globalOptions.fps = fpsInt;
 }
 
-void optionSetRom (char* romPath)
+static void cmdOptionSetRom (char* romPath)
 {
     // We can actually get away with doing this since argv is stack allocated and the user
     // can't change rom without restarting the program
     globalOptions.rom = romPath;
 }
 
-void optionSetFg (char* color)
+static void cmdOptionSetFg (char* color)
 {
     struct rgbColor colorData;
     if (!(hexStringToColor (color, &colorData)))
@@ -81,7 +81,7 @@ void optionSetFg (char* color)
     globalOptions.foregroundColor = colorData;
 }
 
-void optionSetBg (char* color)
+static void cmdOptionSetBg (char* color)
 {
     struct rgbColor colorData;
     if (!(hexStringToColor (color, &colorData)))
@@ -92,4 +92,51 @@ void optionSetBg (char* color)
     globalOptions.backgroundColor = colorData;
 }
 
+void parseCommandLine (int argc, char* argv [])
+{
+    if (argc == 1)
+    {
+        return;
+    }
+
+    if (argc == 2)
+    {
+        if (strcmp (argv [1], "--help") == 0)
+        {
+            /* printHelp (); */
+            exit (0);
+        }
+    }
+
+    if (argc % 2 == 0)
+    {
+        fprintf (stderr, "Argument %s needs a value\n", argv [argc - 1]);
+        exit (1);
+    }
+
+    // Skip the program name
+    int argCount = 1;
+    // Since arguments come in pairs, we need to preserve a place for their value
+    while (argCount < argc - 1)
+    {
+        if (strcmp (argv [argCount], "--fps") == 0)
+        {
+            cmdOptionSetFps (argv [argCount + 1]);
+        }
+        else if (strcmp (argv [argCount], "--rom") == 0)
+        {
+            cmdOptionSetRom (argv [argCount + 1]);
+        }
+        else if (strcmp (argv [argCount], "--fg") == 0)
+        {
+            cmdOptionSetFg (argv [argCount + 1]);
+        }
+        else if (strcmp (argv [argCount], "--bg") == 0)
+        {
+            cmdOptionSetBg (argv [argCount + 1]);
+        }
+
+        argCount += 2;
+    }
+}
 
