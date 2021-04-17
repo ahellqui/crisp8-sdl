@@ -21,6 +21,15 @@ struct crisp8SdlOptions globalOptions = {
     .rom = NULL
 };
 
+// Converts a string of hex numbers into RGB color values.
+// The string must contain exactly 6 hexadecimal lowercase digits and must not begin with a hash
+//
+// Parameters:
+//  str: The string to convert
+//  colorData: Pointer to the struct in which the converted color data will be placed
+//
+// Return value:
+//  true if the conversion was successful, false otherwise
 static bool hexStringToColor (char* str, struct rgbColor* colorData)
 {
     size_t stringLen = strlen (str);
@@ -43,6 +52,10 @@ static bool hexStringToColor (char* str, struct rgbColor* colorData)
     return true;
 }
 
+// Sets the fps (cycles per second) of the emulator
+//
+// Parameters:
+//  fps: string containing the desired fps value in base 10
 static void cmdOptionSetFps (char* fps)
 {
     const size_t argLength = strlen (fps);
@@ -63,6 +76,10 @@ static void cmdOptionSetFps (char* fps)
     globalOptions.fps = fpsInt;
 }
 
+// Sets the path to the rom to load
+//
+// Parameters:
+//  romPath: path to the rom to load
 static void cmdOptionSetRom (char* romPath)
 {
     // We can actually get away with doing this since argv is stack allocated and the user
@@ -70,6 +87,10 @@ static void cmdOptionSetRom (char* romPath)
     globalOptions.rom = romPath;
 }
 
+// Sets the foreground color of the emulator
+//
+// Parameters:
+//  color: string containing the desired foreground color in 6 digit lowercase hex format
 static void cmdOptionSetFg (char* color)
 {
     struct rgbColor colorData;
@@ -81,6 +102,10 @@ static void cmdOptionSetFg (char* color)
     globalOptions.foregroundColor = colorData;
 }
 
+// Sets the background color of the emulator
+//
+// Parameters:
+//  color: string containing the desired background color in 6 digit lowercase hex format
 static void cmdOptionSetBg (char* color)
 {
     struct rgbColor colorData;
@@ -116,7 +141,7 @@ void parseCommandLine (int argc, char* argv [])
 
     // Skip the program name
     int argCount = 1;
-    // Since arguments come in pairs, we need to preserve a place for their value
+    // Since arguments come in pairs, we need to reserve a place for their value
     while (argCount < argc - 1)
     {
         if (strcmp (argv [argCount], "--fps") == 0)

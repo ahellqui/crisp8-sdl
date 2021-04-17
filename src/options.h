@@ -2,7 +2,6 @@
 #define CRISP8_SDL_OPTIONS_H
 
 #include <stdint.h>
-#include <stddef.h> // NULL
 
 struct rgbColor
 {
