@@ -6,9 +6,14 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 640
 
+// The width and height of each pixel on the chip-8's screen
 #define CHIP8_PIXEL_WIDTH WINDOW_WIDTH / CRISP8_DISPLAY_WIDTH
 #define CHIP8_PIXEL_HEIGHT WINDOW_HEIGHT / CRISP8_DISPLAY_HEIGHT
 
+// Clear the screen with the chosen background color
+//
+// Parameters:
+//  screen: The screen struct to clear
 static void clearScreen (struct screen* screen)
 {
     SDL_SetRenderDrawColor (screen->renderer, globalOptions.backgroundColor.r,
@@ -18,6 +23,10 @@ static void clearScreen (struct screen* screen)
     SDL_RenderClear (screen->renderer);
 }
 
+// Draw what is in the SDL framebuffer to the window
+//
+// Parameters:
+//  screen: theh screen struct to draw
 static void presentScreen (struct screen* screen)
 {
     SDL_RenderPresent (screen->renderer);
