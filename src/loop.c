@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 
+// Returns true if the window receives a close signal (e.g the user clicks on the red cross or equivalent)
 static bool shouldQuit ()
 {
     SDL_Event event;
@@ -19,6 +20,13 @@ static bool shouldQuit ()
     return false;
 }
 
+// Call at the end of a loop to cap the framerate
+//
+// Parameters:
+//  lastTime: The time in milliseconds since the last frame
+//  remainder: A variable keeping track of subseconds for a more exact framerate. Pass in a zeroed variable the first
+//  time and reuse it later.
+//  fps: The fps to cap the framerate to
 static void capFramerate (uint32_t* lastTime, float* remainder, uint16_t fps)
 {
     const float expectedFrametime = 1000.0f / fps;
