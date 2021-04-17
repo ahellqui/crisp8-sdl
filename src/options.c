@@ -19,8 +19,7 @@ struct crisp8SdlOptions globalOptions = {
     .backgroundColor.b = 0,
 
     .rom = NULL
-};
-
+}; 
 // Converts a string of hex numbers into RGB color values.
 // The string must contain exactly 6 hexadecimal lowercase digits and must not begin with a hash
 //
@@ -50,6 +49,30 @@ static bool hexStringToColor (char* str, struct rgbColor* colorData)
     colorData->b = (hexValue >> 0)  & 0xff;
 
     return true;
+}
+
+// Prints a help message explaining the usage
+static void cmdPrintHelp ()
+{
+    puts (
+           "crisp8-sdl --rom <path to rom> [options]\n"
+           "Options:\n"
+           "\t--help\tPrint this message and exit\n"
+           "\t--fps\tThe fps or really clock cycles per second to run the program at\n"
+           "\t--fg\tSet the foreground color to a color specified with a lowercase 6 digit hex string\n"
+           "\t--fg\tSet the background color to a color specified with a lowercase 6 digit hex string\n"
+         );
+}
+
+// Called when a command line option supplied is wrong
+//
+// Parameters:
+//  command: the unrecognized command line option
+static void cmdUnrecognized (char* command)
+{
+    fprintf (stderr, "Unrecognized command line option: %s\n\n", command);
+    cmdPrintHelp ();
+    exit (1);
 }
 
 // Sets the fps (cycles per second) of the emulator
@@ -128,7 +151,7 @@ void parseCommandLine (int argc, char* argv [])
     {
         if (strcmp (argv [1], "--help") == 0)
         {
-            /* printHelp (); */
+            cmdPrintHelp ();
             exit (0);
         }
     }
@@ -159,6 +182,10 @@ void parseCommandLine (int argc, char* argv [])
         else if (strcmp (argv [argCount], "--bg") == 0)
         {
             cmdOptionSetBg (argv [argCount + 1]);
+        }
+        else
+        {
+            cmdUnrecognized (argv [argCount]);
         }
 
         argCount += 2;
