@@ -64,6 +64,7 @@ static void cmdPrintHelp ()
            "\t--fps\tThe fps or really clock cycles per second to run the program at\n"
            "\t--fg\tSet the foreground color to a color specified with a lowercase 6 digit hex string\n"
            "\t--fg\tSet the background color to a color specified with a lowercase 6 digit hex string\n"
+           "\t--no-alpha\tTurn off the use of alpha in the display. This will cause moving sprites to flicker\n"
          );
 }
 
