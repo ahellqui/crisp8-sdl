@@ -50,7 +50,7 @@ static uint8_t* loadProgram (const char* programFile, uint16_t* programSize)
         abort ();
     }
 
-    FILE* prog = fopen (programFile, "r");
+    FILE* prog = fopen (programFile, "rb");
     if (!prog)
     {
         fprintf (stderr, "Could not open file: %s, aborting\n", programFile);
@@ -77,6 +77,8 @@ static uint8_t* loadProgram (const char* programFile, uint16_t* programSize)
             }
         }
     }
+
+    fclose (prog);
 
     return programArr;
 }
