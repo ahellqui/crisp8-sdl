@@ -29,7 +29,7 @@ Unfortunately modern keyboards lack a good equivalent to the chip-8's keypad. Th
 | z | x | c | v |
 
 ## Building
-Building crisp8-sdl requires a c compiler (mingw gcc on windows or you're on your own), make, cmake, SDL2 and SDL2\_mixer. If you're on linux I trust you can install the libraries with your package manager, windows is more complicated.
+Building crisp8-sdl requires a c compiler (mingw gcc on windows or you're on your own), make, cmake, SDL2 and SDL2\_mixer. If you're on linux I trust you can install the libraries with your package manager; windows is unfortunately more complicated.
 
 First and foremost you have to clone this git repository to your local machine and cd into it, afterwards follow the instructions for your OS.
 
