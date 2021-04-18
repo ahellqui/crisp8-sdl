@@ -25,7 +25,12 @@ if (WIN32)
     target_link_directories (crisp8-sdl PRIVATE ${SDL2_MIXER_PATH}/lib)
 
     # Bundle the sdl libraries on windows
-    file (GLOB SDL2_MIXER_DEPENDENCIES ${SDL2_MIXER_PATH}/bin/*)
+    set (SDL2_MIXER_DEPENDENCIES ${SDL2_MIXER_PATH}/bin/libogg-0.dll
+                                 ${SDL2_MIXER_PATH}/bin/libvorbis-0.dll
+                                 ${SDL2_MIXER_PATH}/bin/LICENSE.ogg-vorbis.txt
+                                 ${SDL2_MIXER_PATH}/bin/libvorbisfile-3.dll
+                                 ${SDL2_MIXER_PATH}/bin/SDL2_mixer.dll
+                                 )
     install (FILES ${SDL2_MIXER_DEPENDENCIES}  DESTINATION bin)
     install (FILES ${SDL2_DIR}/../bin/SDL2.dll DESTINATION bin)
 
