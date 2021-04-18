@@ -1,4 +1,4 @@
-Crisp8-sdl is a reference frontend for the [crisp8](https://github.com/ahellqui/crisp8) backend using SDL2 for audio, video, input and things.
+Crisp8-sdl is a reference frontend for the [crisp8](https://github.com/ahellqui/crisp8) backend using SDL2 for cross platform audio, video and input.
 
 ## Usage
 Run the program and supply a rom file:
@@ -7,10 +7,29 @@ Run the program and supply a rom file:
 crisp8-sdl --rom <path-to-rom>
 ```
 
-More options will arrive eventually.
+Run the program without arguments or with `--help` to print a messsage describing the usage.
+
+### Key mappings
+Unfortunately modern keyboards lack a good equivalent to the chip-8's keypad. The default mappings are shown in the tables below, but it should be easy to change them by modifying `inputCB` in `src/callbacks.c` if you so desire.
+
+#### Chip-8 keypad
+|   |   |   |   |
+|---|---|---|---|
+| 1 | 2 | 3 | c |
+| 4 | 5 | 6 | d |
+| 7 | 8 | 9 | e |
+| a | 0 | b | f |
+
+#### crisp8-sdl key map
+|   |   |   |   |
+|---|---|---|---|
+| 1 | 2 | 3 | 4 |
+| q | w | e | r |
+| a | s | d | f |
+| z | x | c | v |
 
 ## Building
-Building crisp8-sdl requires a c compiler (mingw gcc on windows or you're on your own), make, cmake, SDL2 and SDL2_mixer. If you're on linux I trust you can install the libraries with your package manager, windows is more complicated.
+Building crisp8-sdl requires a c compiler (mingw gcc on windows or you're on your own), make, cmake, SDL2 and SDL2\_mixer. If you're on linux I trust you can install the libraries with your package manager, windows is more complicated.
 
 First and foremost you have to clone this git repository to your local machine and cd into it, afterwards follow the instructions for your OS.
 
@@ -44,7 +63,7 @@ make install/local
 I appologize in advance to everyone who tries this. It works, but it is not fun.
 
 1. Install the SDL2 development libraries for mingw from [here](https://www.libsdl.org/download-2.0.php) to a directory of your choice.
-2. Install the SDL2_mixer development libraries for mingw from [here](https://www.libsdl.org/projects/SDL_mixer/) to a directory of your choice.
+2. Install the SDL2\_mixer development libraries for mingw from [here](https://www.libsdl.org/projects/SDL_mixer/) to a directory of your choice.
 3. Create a build directory in your cloned crisp8-sdl directory and cd into it
 ```sh
 mkdir build
