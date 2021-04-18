@@ -2,6 +2,7 @@
 #define CRISP8_SDL_OPTIONS_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 struct rgbColor
 {
@@ -17,6 +18,9 @@ extern struct crisp8SdlOptions
     // RGB values of background and foreground colors
     struct rgbColor foregroundColor;
     struct rgbColor backgroundColor;
+
+    // Whether to use alpha values on the display or not causing the fading pixels look
+    bool useAlpha;
 
     // The path to the rom
     char* rom;

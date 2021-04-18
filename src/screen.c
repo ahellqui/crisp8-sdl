@@ -69,12 +69,18 @@ void drawFramebuffer (struct screen* screen, const uint8_t* const framebuffer)
     {
         if (framebuffer [i])
         {
+            uint8_t alpha = framebuffer [i];
+            if (globalOptions.useAlpha == false)
+            {
+                alpha = alpha == 0xFF ? 0xFF : 0;
+            }
+
             // This frontend is written with the macro CRISP8_DISPLAY_USE_ALPHA defined. Hence, the pixels value are
             // their alpha value.
             SDL_SetRenderDrawColor (screen->renderer, globalOptions.foregroundColor.r,
                                                       globalOptions.foregroundColor.g,
                                                       globalOptions.foregroundColor.b,
-                                                      framebuffer [i]);
+                                                      alpha);
 
             SDL_RenderFillRect (screen->renderer, &screen->displayPixels [i]);
         }

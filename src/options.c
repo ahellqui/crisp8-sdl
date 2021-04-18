@@ -18,8 +18,11 @@ struct crisp8SdlOptions globalOptions = {
     .backgroundColor.g = 0,
     .backgroundColor.b = 0,
 
+    .useAlpha = true,
+
     .rom = NULL
 }; 
+
 // Converts a string of hex numbers into RGB color values.
 // The string must contain exactly 6 hexadecimal lowercase digits and must not begin with a hash
 //
@@ -140,55 +143,82 @@ static void cmdOptionSetBg (char* color)
     globalOptions.backgroundColor = colorData;
 }
 
+// Sets whether to use alpha values on the display or not, disabling or enabling the fading pixels
+//
+// Parameters:
+//  shouldUse: true if alpha should be enabled, false otherwise
+static void cmdOptionSetAlpha (bool shouldUse)
+{
+    globalOptions.useAlpha = shouldUse;
+}
+
+// Checks for the presence of an argument for commands that need it and increments argCount if it exists
+//
+// Parameters:
+//  argc: the total amount of command line options, should be passed directly from main
+//  argCount: the number of the current command line option
+//  command: the name of the current command line option
+//
+// Return value:
+//  argCount incremented by one
+static int checkCommandArg (int argc, int argCount, char* command)
+{
+    if (argCount + 1 == argc)
+    {
+        fprintf (stderr, "Argument %s needs a value\n", command); 
+        exit (1);
+    }
+
+    return argCount + 1;
+}
+
 void parseCommandLine (int argc, char* argv [])
 {
     if (argc == 1)
     {
-        return;
-    }
-
-    if (argc == 2)
-    {
-        if (strcmp (argv [1], "--help") == 0)
-        {
-            cmdPrintHelp ();
-            exit (0);
-        }
-    }
-
-    if (argc % 2 == 0)
-    {
-        fprintf (stderr, "Argument %s needs a value\n", argv [argc - 1]);
-        exit (1);
+        cmdPrintHelp ();
+        exit (0);
     }
 
     // Skip the program name
     int argCount = 1;
-    // Since arguments come in pairs, we need to reserve a place for their value
-    while (argCount < argc - 1)
+    while (argCount < argc)
     {
-        if (strcmp (argv [argCount], "--fps") == 0)
+        if (strcmp (argv [argCount], "--help") == 0)
         {
-            cmdOptionSetFps (argv [argCount + 1]);
+            cmdPrintHelp ();
+            exit (0);
+        }
+        else if (strcmp (argv [argCount], "--fps") == 0)
+        {
+            argCount = checkCommandArg (argc, argCount, argv [argCount]);
+            cmdOptionSetFps (argv [argCount]);
         }
         else if (strcmp (argv [argCount], "--rom") == 0)
         {
-            cmdOptionSetRom (argv [argCount + 1]);
+            argCount = checkCommandArg (argc, argCount, argv [argCount]);
+            cmdOptionSetRom (argv [argCount]);
         }
         else if (strcmp (argv [argCount], "--fg") == 0)
         {
-            cmdOptionSetFg (argv [argCount + 1]);
+            argCount = checkCommandArg (argc, argCount, argv [argCount]);
+            cmdOptionSetFg (argv [argCount]);
         }
         else if (strcmp (argv [argCount], "--bg") == 0)
         {
-            cmdOptionSetBg (argv [argCount + 1]);
+            argCount = checkCommandArg (argc, argCount, argv [argCount]);
+            cmdOptionSetBg (argv [argCount]);
+        }
+        else if (strcmp (argv [argCount], "--no-alpha") == 0)
+        {
+            cmdOptionSetAlpha (false);
         }
         else
         {
             cmdUnrecognized (argv [argCount]);
         }
 
-        argCount += 2;
+        argCount += 1;
     }
 }
 
